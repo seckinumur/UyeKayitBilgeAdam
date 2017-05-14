@@ -1,0 +1,259 @@
+﻿@model List<UyeKayitBilgeAdam.DAL.VM.VMUye>
+@{
+    ViewBag.Title = "AnaSayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AnaSayfa</h2>
+
+<div id="page-wrapper">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">Ana Sayfa <button class="btn btn-success" data-toggle="modal" data-target="#Comar"><i class="fa fa-paperclip"></i> AtaçAdam Yardım</button> </h1>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tüm Üyeler Gösteriliyor
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>ÜYE ADI</th>
+                                <th>ÜYE SOYADI</th>
+                                <th>TELEFONU</th>
+                                <th>EMAİL</th>
+                                <th>UYE TİPİ</th>
+                                <th>İŞLEMLER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.UyeAdi</td>
+                                        <td>@item.UyeSoyadi</td>
+                                        <td>@item.Telefon</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.UyeTipi</td>
+                                        <td>
+                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.UyeID)">Üyeyi Sil</button>
+                                            <input type="hidden" id="@item.UyeID" value="@item.UyeAdi" />
+                                            <button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem2(@item.UyeID)">Üyeyi Düzenle</button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Comar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">AtaçAdam AI V.1.2 (ALPHA)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                AtaçAdam Yardım
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    Merhaba! Ben SiteRobotu AtaçAdam. BilgeAdam Basit Üye Kayıt Sistemine hoşgeldiniz.
+                                    <strong style="color:red">
+                                        Bu Program Bilge Adam Ödevi İçin Hazırlanmıştır. Basit Şekilde Üye Kaydetme Düzenleme
+                                        Silme İşlemlerini Gerçekleştirir. Aynı Zamanda Üyelere Üye tipi Belirleyebilir.
+                                    </strong>Bu Sayfada Tüm Üyeler Gösterilmektedir
+                                </p>
+                            </div>
+                            <div class="panel-footer">
+                                Haydi Hazırsanız Şimdi Üyelere Bir Göz Atın...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Üye Silme</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="UyeID" id="SilmeAl" />
+                            <input type="hidden" name="Gorev" value="Sil" />
+                            <div class="form-group">
+                                <label>Bu Üye Silenecek Devam Edilsin mi?</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">SİL</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Duzenle" tabindex="-1" role="dialog" aria-labelledby="DuzenleLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="DuzenleLabel">Üye Düzenle</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="UyeID" id="idal" />
+                            <input type="hidden" name="Gorev" value="Degistir" />
+                            <div class="form-group">
+                                <label>Bu Uye Güncellenecek Devam Edilsin mi?</label>
+                                <div class="form-group">
+                                    <label>Uye Adı</label>
+                                    <input class="form-control" name="UyeAdi" id="BurayaYaz">
+                                </div>
+                                <div class="form-group">
+                                    <label>Uye Soyadı</label>
+                                    <input class="form-control" name="UyeSoyadi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefonu</label>
+                                    <input class="form-control" name="Telefon">
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input class="form-control" name="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Üye Tipi Seç</label>
+                                    <select class="form-control" name="UyeTipi">
+                                        @{
+                                            foreach (var item in (List<UyeKayitBilgeAdam.DAL.VM.VMUyeTipi>)ViewBag.UyeTipi)
+                                            {
+                                                <option>@item.Tipi</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        ÇOMAR AI V.1.2 (ALPHA)
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            Merhaba! Ben SiteRobotu AtaçAdam. Şimdi Seçtiğiniz Üyenin ismini Görüyor Olmalısınız.
+                                            Buradan <strong style="color:blue"> Üyeyi Düzenleyebilirsiniz </strong>
+                                        </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                        Hazırsanız Şimdi Üyeyi Güncelleyelim...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Ekle" tabindex="-1" role="dialog" aria-labelledby="EkleLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="EkleLabel">Üye Ekle</h4>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" name="Gorev" value="Ekle" />
+                            <div class="form-group">
+                                <label>Yeni Bir Ürün Eklenecek Devam Edilsin mi?</label>
+                                <div class="form-group">
+                                    <label>Uye Adı</label>
+                                    <input class="form-control" name="UyeAdi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Uye Soyadı</label>
+                                    <input class="form-control" name="UyeSoyadi">
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefonu</label>
+                                    <input class="form-control" name="Telefon">
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input class="form-control" name="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Üye Tipi Seç</label>
+                                    <select class="form-control" name="UyeTipi">
+                                        @{
+                                            foreach (var item in (List<UyeKayitBilgeAdam.DAL.VM.VMUyeTipi>)ViewBag.UyeTipi)
+                                            {
+                                                <option>@item.Tipi</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        AtaçAdam AI V.1.2 (ALPHA)
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            Merhaba! Ben SiteRobotu AtaçAdam. Bu Menüden Yeni Bir Üye Ekleyebilirsiniz.
+                                        </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                        Hazırsanız Şimdi Yeni Bir Üye Ekleyelim...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="submit" class="btn btn-warning">Ekle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div>
+                <button data-toggle="modal" data-target="#Ekle" class="btn btn-info col-lg-12">Üye Ekle</button>
+                <p class="text-warning"><strong>Bir Üye Eklemek İçin Üye Ekle Butonuna Basın</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function Islem(al) {
+        document.getElementById("SilmeAl").value = al;
+    }
+    function Islem2(al2) {
+        var a = document.getElementById(al2).value;
+        document.getElementById("idal").value = al2;
+        document.getElementById("BurayaYaz").value = a;
+    }
+</script>
