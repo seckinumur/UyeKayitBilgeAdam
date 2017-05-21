@@ -17,9 +17,9 @@ namespace UyeKayitBilgeAdam.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(VMEgitimci al)
+        public ActionResult Index(VMUye al)
         {
-            if(al.ad=="yavuzgedik" && al.sifre== "1234")
+            if(UyeRepo.Giris(al)==true)
             {
                 Session["Admin"] = Convert.ToString("true");
                 return RedirectToAction("AnaSayfa");
@@ -37,13 +37,18 @@ namespace UyeKayitBilgeAdam.Controllers
                 ViewBag.Secret= "/Source/Code.rar";
                 var listele = UyeRepo.HepsiniListele();
                 ViewBag.UyeTipi = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = true;
+                ViewBag.Uyari = true;
                 return View(listele);
+
             }
             else
             {
                 ViewBag.Secret = "";
                 var listele = UyeRepo.HepsiniListele();
                 ViewBag.UyeTipi = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = false;
+                ViewBag.Uyari = true;
                 return View(listele);
             }
         }
@@ -55,26 +60,64 @@ namespace UyeKayitBilgeAdam.Controllers
             {
                 if (Al.Gorev == "Degistir")
                 {
-                     UyeRepo.UyeGuncelle(Al);
+                    bool al= UyeRepo.UyeGuncelle(Al);
+                    if (al == true)
+                    {
+                        ViewBag.UyariTipi = "alert alert-success";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Başarıyla Değiştirildi";
+                    }
+                    else
+                    {
+                        ViewBag.UyariTipi = "alert alert-warning";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Değiştirelemedi";
+                    }
                 }
                 else if (Al.Gorev == "Sil")
                 {
                     UyeRepo.Sil(Al.UyeID);
+
                 }
                 else if (Al.Gorev == "Ekle")
                 {
-                     UyeRepo.UyeKaydet(Al);
+                    bool al = UyeRepo.UyeKaydet(Al);
+                    if (al == true)
+                    {
+                        ViewBag.UyariTipi = "alert alert-success";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Başarıyla Kaydedildi";
+                    }
+                    else
+                    {
+                        ViewBag.UyariTipi = "alert alert-warning";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Zaten Var";
+                    }
                 }
                 ViewBag.Secret = "/Source/Code.rar";
                 var listele = UyeRepo.HepsiniListele();
                 ViewBag.UyeTipi = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = true;
                 return View(listele);
             }
             else
             {
                 if (Al.Gorev == "Degistir")
                 {
-                    UyeRepo.UyeGuncelle(Al);
+                    bool al = UyeRepo.UyeGuncelle(Al);
+                    if (al == true)
+                    {
+                        ViewBag.UyariTipi = "alert alert-success";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Başarıyla Değiştirildi";
+                    }
+                    else
+                    {
+                        ViewBag.UyariTipi = "alert alert-warning";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Değiştirelemedi";
+                    }
                 }
                 else if (Al.Gorev == "Sil")
                 {
@@ -82,11 +125,24 @@ namespace UyeKayitBilgeAdam.Controllers
                 }
                 else if (Al.Gorev == "Ekle")
                 {
-                     UyeRepo.UyeKaydet(Al);
+                    bool al = UyeRepo.UyeKaydet(Al);
+                    if (al == true)
+                    {
+                        ViewBag.UyariTipi = "alert alert-success";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Başarıyla Kaydedildi";
+                    }
+                    else
+                    {
+                        ViewBag.UyariTipi = "alert alert-warning";
+                        ViewBag.Uyari = false;
+                        ViewBag.Sonuc = "Uye Zaten Var";
+                    }
                 }
                 ViewBag.Secret = "";
                 var listele = UyeRepo.HepsiniListele();
                 ViewBag.UyeTipi = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = false;
                 return View(listele);
             }
         }
@@ -97,12 +153,14 @@ namespace UyeKayitBilgeAdam.Controllers
             {
                 ViewBag.Secret = "/Source/Code.rar";
                 var listele = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = true;
                 return View(listele);
             }
             else
             {
                 ViewBag.Secret = "";
                 var listele = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = false;
                 return View(listele);
             }
         }
@@ -126,6 +184,7 @@ namespace UyeKayitBilgeAdam.Controllers
                 }
                 ViewBag.Secret = "/Source/Code.rar";
                 var listele = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = true;
                 return View(listele);
             }
             else
@@ -144,6 +203,7 @@ namespace UyeKayitBilgeAdam.Controllers
                 }
                 ViewBag.Secret = "";
                 var listele = UyeTipiRepo.HepsiniListele();
+                ViewBag.Admin = false;
                 return View(listele);
             }
         }

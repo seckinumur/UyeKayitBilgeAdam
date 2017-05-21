@@ -21,7 +21,17 @@ namespace UyeKayitBilgeAdam.Entiti.Context
         {
             db.UyeTipi.Add(new UyeTipi
             {
-                Tipi = "Üye"
+                Tipi = "Baþkan"
+            });
+            db.SaveChanges();
+            db.UyeTipi.Add(new UyeTipi
+            {
+                Tipi = "Sekreter"
+            });
+            db.SaveChanges();
+            db.UyeTipi.Add(new UyeTipi
+            {
+                Tipi = "Sayman"
             });
             db.SaveChanges();
         }

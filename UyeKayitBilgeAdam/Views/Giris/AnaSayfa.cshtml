@@ -20,6 +20,7 @@
                 <div class="panel-heading">
                     Tüm Üyeler Gösteriliyor
                 </div>
+                <div class="@ViewBag.UyariTipi" hidden="@ViewBag.Uyari">@ViewBag.Sonuc</div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -45,9 +46,10 @@
                                         <td>@item.Email</td>
                                         <td>@item.UyeTipi</td>
                                         <td>
-                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.UyeID)">Üyeyi Sil</button>
+                                            <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" onclick="Islem(@item.UyeID)" disabled="@(ViewBag.Admin == false ? true : false)">Üyeyi Sil</button>
                                             <input type="hidden" id="@item.UyeID" value="@item.UyeAdi" />
-                                            <button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem2(@item.UyeID)">Üyeyi Düzenle</button>
+                                            @*<button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem2(@item.UyeID)" disabled="@(ViewBag.Admin == false ? true : false)">Üyeyi Düzenle</button>*@
+                                            <button data-toggle="modal" data-target="#Duzenle" class="btn btn-info" onclick="Islem3('@item.UyeAdi','@item.UyeSoyadi','@item.Telefon','@item.Email','@item.Sifre')" disabled="@(ViewBag.Admin == false ? true : false)">Üyeyi Düzenle</button>
                                         </td>
                                     </tr>
                                 }
@@ -130,15 +132,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Uye Soyadı</label>
-                                    <input class="form-control" name="UyeSoyadi">
+                                    <input class="form-control" name="UyeSoyadi" id="SoyadiVer">
                                 </div>
                                 <div class="form-group">
                                     <label>Telefonu</label>
-                                    <input class="form-control" name="Telefon">
+                                    <input class="form-control" name="Telefon" id="TelefonVer">
                                 </div>
                                 <div class="form-group">
-                                    <label>E-mail</label>
-                                    <input class="form-control" name="Email">
+                                    <label>E-Mail</label>
+                                    <input class="form-control" name="Email" id="EmailVer">
+                                </div>
+                                <div class="form-group">
+                                    <label>Şifre</label>
+                                    <input class="form-control" name="Sifre" id="SifreVer">
                                 </div>
                                 <div class="form-group">
                                     <label>Üye Tipi Seç</label>
@@ -205,6 +211,10 @@
                                     <input class="form-control" name="Email">
                                 </div>
                                 <div class="form-group">
+                                    <label>Şifre</label>
+                                    <input class="form-control" name="Sifre">
+                                </div>
+                                <div class="form-group">
                                     <label>Üye Tipi Seç</label>
                                     <select class="form-control" name="UyeTipi">
                                         @{
@@ -255,5 +265,13 @@
         var a = document.getElementById(al2).value;
         document.getElementById("idal").value = al2;
         document.getElementById("BurayaYaz").value = a;
+    }
+    function Islem3(a,b,c,d,e) {
+       
+        document.getElementById("BurayaYaz").value = a;
+        document.getElementById("SoyadiVer").value = b;
+        document.getElementById("TelefonVer").value = c;
+        document.getElementById("EmailVer").value = d;
+        document.getElementById("SifreVer").value = e;
     }
 </script>

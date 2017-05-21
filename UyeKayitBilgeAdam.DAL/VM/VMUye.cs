@@ -15,5 +15,7 @@ namespace UyeKayitBilgeAdam.DAL.VM
         public string Email { get; set; }
         public string UyeTipi { get; set; }
         public string Gorev { get; set; }
+        public string Sifre { get; set; }
+        public bool Admin { get; set; }
     }
 }

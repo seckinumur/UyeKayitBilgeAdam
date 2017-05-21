@@ -185,9 +185,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Giris\UyeTipi.cshtml" />
-    <Content Include="Source\Code.rar">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -198,6 +195,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Source\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UyeKayitBilgeAdam.DAL\UyeKayitBilgeAdam.DAL.csproj">

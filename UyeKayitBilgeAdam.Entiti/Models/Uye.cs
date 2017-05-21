@@ -13,6 +13,8 @@ namespace UyeKayitBilgeAdam.Entiti.Models
         public string UyeSoyadi { get; set; }
         public string Telefon { get; set; }
         public string Email { get; set; }
+        public string Sifre { get; set; }
+        public bool Admin { get; set; }
         public long UyeTipiID { get; set; }
 
         public virtual UyeTipi UyeTipi { get; set; }

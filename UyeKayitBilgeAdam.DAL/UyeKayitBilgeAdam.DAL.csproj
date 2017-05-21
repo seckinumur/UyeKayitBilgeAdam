@@ -50,7 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\UyeRepo.cs" />
     <Compile Include="Repos\UyeTipiRepo.cs" />
-    <Compile Include="VM\VMEgitimci.cs" />
     <Compile Include="VM\VMUye.cs" />
     <Compile Include="VM\VMUyeTipi.cs" />
   </ItemGroup>
