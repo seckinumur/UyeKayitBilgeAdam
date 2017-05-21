@@ -34,6 +34,17 @@ namespace UyeKayitBilgeAdam.Entiti.Context
                 Tipi = "Sayman"
             });
             db.SaveChanges();
+            db.Uye.Add(new Uye
+            {
+                Admin = true,
+                UyeAdi = "yavuz",
+                Email = "mail@yavuzgedik.com",
+                Sifre = "1234",
+                Telefon = "5423428009",
+                UyeSoyadi = "gedik",
+                UyeTipiID = 1
+            });
+            db.SaveChanges();
         }
     }
 }
